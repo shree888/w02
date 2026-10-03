@@ -29,14 +29,14 @@ after construction can push it out of range.
 `Animal` guarantees that `name` is non-null and non-blank (and stored trimmed), and that `species`,
 `age`, and `intakeDate` are all non-null. All four checks run in the constructor
 (`Animal.java:56-66`) before any field is assigned (`this.name = name.trim();` is the first
-assignment, at line 68) — so the object never exists in a half-valid state partway through
-construction. Each guarantee is enforced in exactly one place; I did not duplicate any check.
+assignment, at line 68), so the object never exists in a half-valid state partway through
+construction. Each guarantee is enforced in exactly one place.
 
 ## 4. Testing
 
-The test cases in the `AgeMonthsAdditionalTest` file covers boundary and message cases: one below `MAX_MONTHS`, large negative values (`Integer.MIN_VALUE`), that negative/over-max refusals name the offending value and the limit, that `IntakeException` is unchecked, and `toString()` at the edges — `0`, `MAX_MONTHS` (`"40 years"`), and `MAX_MONTHS - 1` (`"39 years, 11 months"`).
+The test cases in the `AgeMonthsAdditionalTest` file covers boundary and message cases: one below `MAX_MONTHS`, large negative values (`Integer.MIN_VALUE`), that negative/over-max refusals name the offending value and the limit, that `IntakeException` is unchecked, and `toString()` at the edges, `0`, `MAX_MONTHS` (`"40 years"`), and `MAX_MONTHS - 1` (`"39 years, 11 months"`).
 
-`AnimalAdditionalTest` covers: each null-field refusal naming its own argument (species, age, intakeDate, name), tabs/newlines counting as trimmable whitespace, that `IntakeException` is unchecked, that accessors return the exact same object/enum instance passed in (not a copy), `toString()` across all three species (`DOG`, `BIRD`, plus the whole-year case), the oldest allowed age being accepted, and that when both `name` and `species` are invalid, the exception reports `name` first — confirming validation order.
+`AnimalAdditionalTest` covers: each null-field refusal naming its own argument (species, age, intakeDate, name), tabs/newlines counting as trimmable whitespace, that `IntakeException` is unchecked, that accessors return the exact same object/enum instance passed in (not a copy), `toString()` across all three species (`DOG`, `BIRD`, plus the whole-year case), the oldest allowed age being accepted, and that when both `name` and `species` are invalid, the exception reports `name` first, confirming validation order.
 
 Reviewing the code made me think of these test cases, as I was able to analize the code to try to see where I can add new test cases.
 

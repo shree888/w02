@@ -1,7 +1,7 @@
 # LLM Evaluation
 
 ## Assessment
-The LLM's assessment here, in full and unedited.
+The LLM's assessment, in full and unedited:
 
 Confirmed against the actual files on disk: `AgeMonths` is `public final class`, but `Animal` is `public class` (not `final`), and `submission/introspection.md` does not yet exist (only a `.gitkeep` placeholder in that directory). Both facts factor into the review below.
 
@@ -77,8 +77,6 @@ No `equals`/`hashCode`, no collections, no inheritance added — `AnimalTest.two
 
 ### Where it is right
 
-Which criticisms do you accept? For each, say what you would change and why you agree.
-
 
 I accept the criticism name 'must contain at least one non-whitespace character, and must be non-null was " + name' string message for the exception being too vauge. I would change the exception to have a specific error messaged based on whether it was null or an empty string. I agree with this criticism becuase the error message is too vauge and can be changed to provide more information about what error occured.
 
@@ -88,7 +86,7 @@ I also agree about the criticism about the missing test cases and I would add ad
 
 ### Where it is wrong
 
-If i would make the MAX_MONTHS fields private, then the existing tests fail, as the tests use this field. I would not do this for that reason.
+If I would make the MAX_MONTHS fields private, then the existing tests fail, as the tests use this field. I would not do this for that reason.
 
 ### What it missed
 
