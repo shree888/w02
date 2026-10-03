@@ -10,28 +10,14 @@ human-readable year/month description that `Animal.toString()` reuses.
 
 ## 2. Design decisions
 
-**Representing age as `AgeMonths` instead of a raw `int` on `Animal`.** The alternative was to store
-an `int ageMonths` field directly on `Animal` and range-check it in the `Animal` constructor.
-I used the `AgeMonths` value type instead, so `Animal`'s constructor can check `age == null` and
-stop there. It never has to ask whether the number inside is sensible, because an `AgeMonths` that
-exists already guarantees that (`AgeMonths.of`, lines 44–52). The cost is indirection: every call
-site that wants the raw number has to go through `.months()`, and tests have to write
-`AgeMonths.of(23)` instead of a bare `23`.
+First decision I had to think about: to keep the MAX_MONTHS field in the AgeMonths.java class public or change it ot private.
+The choice I made was to keep it public, as the existing test cases use this. An alternative would have been to change the existing test cases so that they don't use the MAX_MONTHS, however I did not want to edit the tests already given to us, incase that would have been against the requirments of this assignment. 
+It costed me encapsulation because other classes can directly access or modify it.
 
-**Delegating `Animal.toString()` to `AgeMonths.toString()` instead of re-deriving the years/months
-text.** `Animal.toString()` (`Animal.java:130-132`) is built entirely from `this.age`'s own
-description rather than recomputing `years()`/`remainderMonths()` and reassembling the
-singular/plural logic a second time. This means the formatting rule — singular/plural agreement,
-omitting the months clause on a whole year — exists in exactly one place. The cost is coupling:
-`Animal`'s output format is now hostage to `AgeMonths`'s; if that format ever changes, `Animal`'s
-changes with it whether or not that was intended.
-
-**A private constructor plus a named static factory (`AgeMonths.of`) instead of a public
-constructor.** The alternative was a public `AgeMonths(int months)` constructor that validates
-inline. I kept the constructor private and validate-then-construct inside `of()` (lines 44–52), so
-there is exactly one path into the type and that path is named for what it does. The cost is a
-small amount of ceremony: an extra method and a private constructor for what is, underneath, one
-field.
+Another design decision I had was to keep one exception for either name being null or an empty string, for the constructor of the Animal Class.
+Alternatively, i could have created a second if statment, having 2 if statments in total for the name, one seeing if the name is null and the second see if it's an empty string (or a string onyl containing spaces), where each if statment throws it's own exception with seperate error messages.
+I decided to have everything in one if statment, as this would make the code simpler and easier to read. 
+It costed the error message being long and a bit ambigious if the name is invalid.
 
 ## 3. Invariants
 
